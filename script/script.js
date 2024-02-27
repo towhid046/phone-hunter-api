@@ -9,7 +9,20 @@ const loadData = async (value) => {
 const displayPhones = (phones) => {
   const phonesContainer = document.getElementById("cards-container");
 
+// clear the phonesContainer after searching
   phonesContainer.innerHTML = "";
+
+  const searchDiv = document.getElementById('show-more-div');
+  console.log(phones.length);
+    if(phones.length > 12 ){
+        searchDiv.classList.remove('hidden');
+    } else{
+        searchDiv.classList.add('hidden')
+    }
+
+    // show only 12 phone after search primarly:
+    phones = phones.slice(0,12);
+
   phones.forEach((phone) => {
     const { phone_name, image } = phone;
     const div = document.createElement("div");
@@ -36,14 +49,18 @@ const displayPhones = (phones) => {
 // showing search data:
 const searchFild = document.getElementById("search-input-fild");
 
-searchFild.addEventListener("keyup", function () {
-  const searchValue = searchFild.value;
-  loadData(searchValue);
-});
+// searchFild.addEventListener("keyup", function () {
+//   const searchValue = searchFild.value;
+//   loadData(searchValue);
+// });
 
 const searchButton = () => {
   const searchValue = searchFild.value;
   loadData(searchValue);
 };
 
-loadData();
+
+// handel show more button:
+
+
+// loadData('a');

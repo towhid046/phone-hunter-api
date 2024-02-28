@@ -9,20 +9,21 @@ const loadData = async (value) => {
 const displayPhones = (phones) => {
   const phonesContainer = document.getElementById("cards-container");
 
-// clear the phonesContainer after searching
+  // clear the phonesContainer after searching
   phonesContainer.innerHTML = "";
 
-  const searchDiv = document.getElementById('show-more-div');
-  console.log(phones.length);
-    if(phones.length > 12 ){
-        searchDiv.classList.remove('hidden');
-    } else{
-        searchDiv.classList.add('hidden')
-    }
+  // show see more btn if the result is more than 12
+  showMoreBtn(phones.length);
 
-    // show only 12 phone after search primarly:
-    phones = phones.slice(0,12);
+  // show only 12 phone after search primarly:
+  phones = phones.slice(0, 12);
 
+  // display phone handelar:
+  displayPhoneHandelar(phones, phonesContainer);
+};
+
+// display data handelar
+const displayPhoneHandelar = (phones, phonesContainer) => {
   phones.forEach((phone) => {
     const { phone_name, image } = phone;
     const div = document.createElement("div");
@@ -46,21 +47,28 @@ const displayPhones = (phones) => {
   });
 };
 
+// show more button based on condition
+const showMoreBtn = (phonesLength) => {
+  const searchDiv = document.getElementById("show-more-div");
+  if (phonesLength > 12) {
+    searchDiv.classList.remove("hidden");
+  } else {
+    searchDiv.classList.add("hidden");
+  }
+};
+
 // showing search data:
 const searchFild = document.getElementById("search-input-fild");
 
-// searchFild.addEventListener("keyup", function () {
-//   const searchValue = searchFild.value;
-//   loadData(searchValue);
-// });
+searchFild.addEventListener("keyup", function () {
+  const searchValue = searchFild.value;
+  loadData(searchValue);
+});
 
 const searchButton = () => {
   const searchValue = searchFild.value;
   loadData(searchValue);
 };
 
+// handel spinner or loader:
 
-// handel show more button:
-
-
-// loadData('a');

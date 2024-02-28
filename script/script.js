@@ -29,13 +29,13 @@ const displayPhones = (phones, isShow) => {
 // display data handelar
 const displayPhoneHandelar = (phones, phonesContainer) => {
   phones.forEach((phone) => {
-    const { phone_name, image } = phone;
+    const { phone_name, image, slug } = phone;
     const div = document.createElement("div");
     div.classList = `card bg-base-100 border-2 p-6`;
 
     div.innerHTML = `
-        <figure class="py-12 bg-[#f3f8ff] rounded-xl">
-          <img src="${image}" alt="Shoes" />
+        <figure onclick="showDetailsClickHandelar('${slug}')" class="cursor-pointer py-12 bg-[#f3f8ff] rounded-xl">
+          <img src="${image}" alt="Phone image" />
         </figure>
 
         <div class="card-body items-center text-center">
@@ -43,7 +43,7 @@ const displayPhoneHandelar = (phones, phonesContainer) => {
           <p>There are many variations of passages of available, but the majority have suffered</p>
           <h3 class='font-bold text-2xl py-4'>999$</h3>
           <div class="card-actions">
-            <button class="btn btn-info text-white font-semibold text-lg">Show Details</button>
+            <button onclick="showDetailsClickHandelar('${slug}')" class="btn btn-info text-white font-semibold text-lg">Show Details</button>
           </div>
         </div>
         `;
@@ -83,4 +83,44 @@ const showMoreBtnHandelar = () => {
   searchBtnHandelar(isShow);
 };
 
+// show details click handelar:
+const showDetailsClickHandelar = async (id) => {
+  const url = `https://openapi.programming-hero.com/api/phone/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  const singlePhone = data.data;
+  displayPhoneDetails(singlePhone);
+  show_modal.showModal();
+};
+
+// display single phone details:
+const displayPhoneDetails = (singlePhone) => {
+  const {image,slug, name, mainFeatures, others, releaseDate, brand } = singlePhone;
+  const phoneDetailsContainer = document.getElementById(
+    "phone-details-container"
+  );
+  phoneDetailsContainer.innerHTML = `
+  <figure class="flex justify-center py-12 bg-[#f3f8ff] rounded-xl">
+  <img
+    src="${image}"
+    class="rounded-xl"
+  />
+</figure>
+<div class="space-y-2">
+
+  <h2 class="card-title font-bold text-black text-3xl">${name}</h2>
+  <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
+
+  <p class="uppercase"><strong class="capitalize">Storage:</strong> ${mainFeatures?.storage}</p>
+  <p><strong class="capitalize">Display Size:</strong> ${mainFeatures?.displaySize}</p>
+  <p><strong class="capitalize">Chipset:</strong> ${mainFeatures?.chipSet}</p>
+  <p class="uppercase"><strong class="capitalize">Memory:</strong> ${mainFeatures?.memory}</p>
+  <p><strong class="capitalize">Slug:</strong> ${slug}</p>
+  <p><strong class="capitalize">Release date:</strong> ${releaseDate}</p>
+  <p><strong class="capitalize">Brand:</strong> ${brand}</p>
+  <p class="uppercase"><strong class="capitalize">Gps:</strong> ${others?.GPS === undefined ? '❌' : others.GPS}</p>
+
+</div>
+  `;
+};
 // loadData('iphone')

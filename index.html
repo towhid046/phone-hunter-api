@@ -99,13 +99,14 @@
         <h2 class="text-3xl font-bold">Search your phone</h2>
         <div class="join">
           <input
+          onkeyup="searchBtnHandelar()"
             id="search-input-fild"
             class="input lg:w-[500px] md:w-[330px] input-bordered join-item"
             placeholder="Search your phone"
             type="text"
           />
           <button
-            onclick="searchButton()"
+            onclick="searchBtnHandelar()"
             class="btn btn-info text-white font-semibold text-base join-item"
           >
             Search
@@ -125,10 +126,13 @@
           class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
         ></div>
         <div id="show-more-div" class="text-center py-4 hidden">
-            <button class="btn btn-success text-white font-semibold text-xl">Show more...</button>
+          <button onclick="showMoreBtnHandelar()" class="btn btn-success text-white font-semibold text-xl">
+            Show more...
+          </button>
         </div>
       </section>
     </main>
+
     <footer></footer>
     <!-- js link -->
     <script src="/script/script.js"></script>

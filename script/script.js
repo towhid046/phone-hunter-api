@@ -1,23 +1,24 @@
-const loadData = async (value) => {
+const loadData = async (value, isShow) => {
   const url = `https://openapi.programming-hero.com/api/phones?search=${value}`;
   const response = await fetch(url);
   const data = await response.json();
   const phones = data.data;
-  displayPhones(phones);
+  displayPhones(phones, isShow);
 };
 
-const displayPhones = (phones) => {
+const displayPhones = (phones, isShow) => {
   const phonesContainer = document.getElementById("cards-container");
 
   // clear the phonesContainer after searching
   phonesContainer.innerHTML = "";
 
   // show see more btn if the result is more than 12
-  showMoreBtn(phones.length);
+  showMoreBtn(phones.length, isShow);
 
   // show only 12 phone after search primarly:
-  phones = phones.slice(0, 12);
-
+  if (!isShow) {
+    phones = phones.slice(0, 12);
+  }
   // display phone handelar:
   displayPhoneHandelar(phones, phonesContainer);
 
@@ -51,13 +52,11 @@ const displayPhoneHandelar = (phones, phonesContainer) => {
 };
 
 // show more button based on condition
-const showMoreBtn = (phonesLength) => {
-  const searchDiv = document.getElementById("show-more-div");
-  if (phonesLength > 12) {
-    searchDiv.classList.remove("hidden");
-  } else {
-    searchDiv.classList.add("hidden");
-  }
+const showMoreBtn = (phonesLength, isShow) => {
+  const showMoreDiv = document.getElementById("show-more-div");
+  phonesLength > 12 && !isShow
+    ? showMoreDiv.classList.remove("hidden")
+    : showMoreDiv.classList.add("hidden");
 };
 
 // handel spinner or loader:
@@ -68,15 +67,20 @@ const spinnerHandelar = (isLoading) => {
     : loadingDiv.classList.add("hidden");
 };
 
-// showing search data:
+// add event listener to the input fild:
 const searchFild = document.getElementById("search-input-fild");
-searchFild.addEventListener("keyup", function () {
+
+// search btn event handelar
+const searchBtnHandelar = (isShow) => {
   spinnerHandelar(true);
   const searchValue = searchFild.value;
-  loadData(searchValue);
-});
-
-const searchButton = () => {
-  const searchValue = searchFild.value;
-  loadData(searchValue);
+  loadData(searchValue, isShow);
 };
+
+// show phone deatails handelar:
+const showMoreBtnHandelar = () => {
+  const isShow = true;
+  searchBtnHandelar(isShow);
+};
+
+// loadData('iphone')

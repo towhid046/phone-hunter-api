@@ -95,7 +95,8 @@ const showDetailsClickHandelar = async (id) => {
 
 // display single phone details:
 const displayPhoneDetails = (singlePhone) => {
-  const {image,slug, name, mainFeatures, others, releaseDate, brand } = singlePhone;
+  const { image, slug, name, mainFeatures, others, releaseDate, brand } =
+    singlePhone;
   const phoneDetailsContainer = document.getElementById(
     "phone-details-container"
   );
@@ -111,14 +112,22 @@ const displayPhoneDetails = (singlePhone) => {
   <h2 class="card-title font-bold text-black text-3xl">${name}</h2>
   <p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout.</p>
 
-  <p class="uppercase"><strong class="capitalize">Storage:</strong> ${mainFeatures?.storage}</p>
-  <p><strong class="capitalize">Display Size:</strong> ${mainFeatures?.displaySize}</p>
+  <p class="uppercase"><strong class="capitalize">Storage:</strong> ${
+    mainFeatures?.storage
+  }</p>
+  <p><strong class="capitalize">Display Size:</strong> ${
+    mainFeatures?.displaySize
+  }</p>
   <p><strong class="capitalize">Chipset:</strong> ${mainFeatures?.chipSet}</p>
-  <p class="uppercase"><strong class="capitalize">Memory:</strong> ${mainFeatures?.memory}</p>
+  <p class="uppercase"><strong class="capitalize">Memory:</strong> ${
+    mainFeatures?.memory
+  }</p>
   <p><strong class="capitalize">Slug:</strong> ${slug}</p>
   <p><strong class="capitalize">Release date:</strong> ${releaseDate}</p>
   <p><strong class="capitalize">Brand:</strong> ${brand}</p>
-  <p class="uppercase"><strong class="capitalize">Gps:</strong> ${others?.GPS === undefined ? '❌' : others.GPS}</p>
+  <p class="uppercase"><strong class="capitalize">Gps:</strong> ${
+    others?.GPS || "❌"
+  }</p>
 
 </div>
   `;

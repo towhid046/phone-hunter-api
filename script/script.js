@@ -34,8 +34,8 @@ const displayPhoneHandelar = (phones, phonesContainer) => {
     div.classList = `card bg-base-100 border-2 p-6`;
 
     div.innerHTML = `
-        <figure onclick="showDetailsClickHandelar('${slug}')" class="cursor-pointer py-12 bg-[#f3f8ff] rounded-xl">
-          <img src="${image}" alt="Phone image" />
+        <figure title="Click to show details" onclick="showDetailsClickHandelar('${slug}')" class="cursor-pointer py-12 bg-[#f3f8ff] rounded-xl">
+          <img class="hover:scale-125 overflow-hidden transition ease-in-out delay-150 bg-blue-500 hover:-translate-y-1 hover:bg-indigo-500 duration-300" src="${image}" alt="Phone image" />
         </figure>
 
         <div class="card-body items-center text-center">
@@ -100,7 +100,7 @@ const displayPhoneDetails = (singlePhone) => {
     "phone-details-container"
   );
   phoneDetailsContainer.innerHTML = `
-  <figure class="flex justify-center py-12 bg-[#f3f8ff] rounded-xl">
+  <figure class="flex justify-center py-12 bg-[#f3f8ff] rounded-xl mb-8">
   <img
     src="${image}"
     class="rounded-xl"

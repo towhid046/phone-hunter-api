@@ -20,6 +20,9 @@ const displayPhones = (phones) => {
 
   // display phone handelar:
   displayPhoneHandelar(phones, phonesContainer);
+
+  // remove the loader after showing the search result
+  spinnerHandelar(false);
 };
 
 // display data handelar
@@ -57,10 +60,18 @@ const showMoreBtn = (phonesLength) => {
   }
 };
 
+// handel spinner or loader:
+const spinnerHandelar = (isLoading) => {
+  const loadingDiv = document.getElementById("spinner");
+  isLoading
+    ? loadingDiv.classList.remove("hidden")
+    : loadingDiv.classList.add("hidden");
+};
+
 // showing search data:
 const searchFild = document.getElementById("search-input-fild");
-
 searchFild.addEventListener("keyup", function () {
+  spinnerHandelar(true);
   const searchValue = searchFild.value;
   loadData(searchValue);
 });
@@ -69,6 +80,3 @@ const searchButton = () => {
   const searchValue = searchFild.value;
   loadData(searchValue);
 };
-
-// handel spinner or loader:
-
